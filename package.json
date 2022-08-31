@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng node --max_old_space_size=8192 && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -41,6 +41,6 @@
   },
   "engines": {
     "npm": "8.x",
-    "node": "18.x"
+    "node": "16.x"
   }
 }
