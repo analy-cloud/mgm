@@ -1,9 +1,25 @@
 <h1>{{title}}</h1>
-<ejs-treegrid #treegrid [dataSource]="data" [allowPaging]="false" [allowSorting]="true" [sortSettings]="sortSettings"
-  [allowFiltering]="true" [filterSettings]="filterSettings" [enableVirtualization]=true height=291 childMapping='Crew'
-  [treeColumnIndex]='1' [toolbar]="toolbar" >
+<ejs-treegrid [dataSource]="data" 
+  [frozenColumns]="2" 
+[frozenRows]="0" 
+[allowSelection]="false" 
+[enableHover]="false" 
+[height]="310"
+[allowSelection]='false' 
+[width]="700"
+
+  >
   <e-columns>
-    <e-column field="OrderID" headerText="Order ID" isPrimaryKey="true">
+
+
+    <e-column field='OrderID' headerText='Order ID' width='120' textAlign='Right' isPrimaryKey='true'></e-column>
+    <e-column field='EmployeeID' headerText='Employee ID' width='120' textAlign='Right' [validationRules]='validationrules'></e-column>
+    <e-column field='ShipName' headerText='Ship Name' width='150'></e-column>
+    <e-column field='ShipAddress' headerText='Ship Address' width='170'></e-column>
+    <e-column field='ShipCity' headerText='Ship City' width='150'></e-column>
+    <e-column field='ShipCountry' headerText='Ship Country' width='150'></e-column>
+    <e-column field='Freight' headerText='Freight' width='120' [validationRules]='validationrules' textAlign='Right'></e-column>
+    <!-- <e-column field="OrderID" headerText="Order ID" isPrimaryKey="true" textAlign='Right' width=120>
     </e-column>
     <e-column field="CustomerID" headerText="Customer ID">
     </e-column>
@@ -13,8 +29,8 @@
     </e-column>
     <e-column field="ShipName" headerText="Ship Name">
     </e-column>
-    <e-column field="ShipRegion" headerText="Ship Region">
-    </e-column>
+    <e-column field="ShipRegion" headerText="Ship Region"  freeze="right">
+    </e-column> -->
   </e-columns>
 </ejs-treegrid>
 
@@ -26,3 +42,52 @@
     <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
   </e-columns>
 </ejs-grid> -->
+
+
+
+<!-- 
+
+
+  <h1>{{title}}</h1>
+
+[allowPaging]="false" 
+[allowSorting]="true" 
+[sortSettings]="sortSettings"
+[allowFiltering]="false"
+[filterSettings]="filterSettings" 
+[enableVirtualization]="false" 
+height=291 
+childMapping='Crew'
+[treeColumnIndex]='1' 
+[toolbar]="toolbar" 
+<ejs-treegrid [dataSource]="data" 
+
+[frozenColumns]="2" 
+[frozenRows]="0" 
+[allowSelection]="false" 
+[enableHover]="false" 
+>
+<ejs-treegrid 
+[dataSource]='data'
+ 
+[enableHover]='false'
+>
+<e-columns>
+  <e-columns>
+    <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
+    <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
+    <e-column field='EmployeeID' headerText='EmployeeID' textAlign='Right' width=90></e-column>
+    <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
+  </e-columns>
+</e-columns>
+</ejs-treegrid>
+
+<!-- <ejs-grid [dataSource]='remoteData' [allowPaging]="true" [pageSettings]="pageSettings">
+<e-columns>
+  <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
+  <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
+  <e-column field='EmployeeID' headerText='EmployeeID' textAlign='Right' width=90></e-column>
+  <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
+</e-columns>
+</ejs-grid> -->
+ -->

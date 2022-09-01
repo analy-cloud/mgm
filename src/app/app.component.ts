@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   public filterSettings: FilterSettingsModel;
   public remoteData: DataManager;
   public toolbar: Toolbar;
+  public validationrules: Object;
+
   title = `mgm's task`;
 
   ngOnInit(): void {
@@ -28,8 +30,10 @@ export class AppComponent implements OnInit {
       //   { field: 'name', direction: 'Descending' },
       // ]
     };
-    this.filterSettings;
+    this.filterSettings = { ignoreAccent: true, immediateModeDelay: 500, mode: "Immediate" };
     this.remoteData = new DataManager({ url: SERVICE_URI, adaptor: new WebApiAdaptor, crossDomain: false });
+    this.validationrules = { required: true };
+
     // this.toolbar;
 
     console.log(this.remoteData)
