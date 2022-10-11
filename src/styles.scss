@@ -1,5 +1,11 @@
 @import url('https://cdn.syncfusion.com/ej2/material.css');
 
 #js-licensing {
-    display: none;
+    display: none!important;
+}
+
+* {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
 }

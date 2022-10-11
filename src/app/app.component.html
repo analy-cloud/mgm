@@ -1,93 +1,47 @@
-<h1>{{title}}</h1>
-<ejs-treegrid [dataSource]="data" 
-  [frozenColumns]="2" 
-[frozenRows]="0" 
-[allowSelection]="false" 
-[enableHover]="false" 
-[height]="310"
-[allowSelection]='false' 
-[width]="700"
-
+<h1 class="e-headercell">{{ statusCode }}</h1>
+<div id="treegrid">
+  <ejs-treegrid
+    [treeColumnIndex]="1"
+    hasChildMapping="isParent"
+    idMapping="TaskID"
+    parentIdMapping="parentID"
+    height="100%"
+    [contextMenuItems]="contextMenuItems"
+    [allowSorting]="true"
+    [sortSettings]="sortSettings"
+    isPrimaryKey="true"
+    #treegrid
   >
-  <e-columns>
-
-
-    <e-column field='OrderID' headerText='Order ID' width='120' textAlign='Right' isPrimaryKey='true'></e-column>
-    <e-column field='EmployeeID' headerText='Employee ID' width='120' textAlign='Right' [validationRules]='validationrules'></e-column>
-    <e-column field='ShipName' headerText='Ship Name' width='150'></e-column>
-    <e-column field='ShipAddress' headerText='Ship Address' width='170'></e-column>
-    <e-column field='ShipCity' headerText='Ship City' width='150'></e-column>
-    <e-column field='ShipCountry' headerText='Ship Country' width='150'></e-column>
-    <e-column field='Freight' headerText='Freight' width='120' [validationRules]='validationrules' textAlign='Right'></e-column>
-    <!-- <e-column field="OrderID" headerText="Order ID" isPrimaryKey="true" textAlign='Right' width=120>
-    </e-column>
-    <e-column field="CustomerID" headerText="Customer ID">
-    </e-column>
-    <e-column field="EmployeeID" headerText="Employee ID">
-    </e-column>
-    <e-column field="OrderDate" headerText="Order Date" format="MM/dd/yyyy">
-    </e-column>
-    <e-column field="ShipName" headerText="Ship Name">
-    </e-column>
-    <e-column field="ShipRegion" headerText="Ship Region"  freeze="right">
-    </e-column> -->
-  </e-columns>
-</ejs-treegrid>
-
-<!-- <ejs-grid [dataSource]='remoteData' [allowPaging]="true" [pageSettings]="pageSettings">
-  <e-columns>
-    <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
-    <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
-    <e-column field='EmployeeID' headerText='EmployeeID' textAlign='Right' width=90></e-column>
-    <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
-  </e-columns>
-</ejs-grid> -->
-
-
-
-<!-- 
-
-
-  <h1>{{title}}</h1>
-
-[allowPaging]="false" 
-[allowSorting]="true" 
-[sortSettings]="sortSettings"
-[allowFiltering]="false"
-[filterSettings]="filterSettings" 
-[enableVirtualization]="false" 
-height=291 
-childMapping='Crew'
-[treeColumnIndex]='1' 
-[toolbar]="toolbar" 
-<ejs-treegrid [dataSource]="data" 
-
-[frozenColumns]="2" 
-[frozenRows]="0" 
-[allowSelection]="false" 
-[enableHover]="false" 
->
-<ejs-treegrid 
-[dataSource]='data'
- 
-[enableHover]='false'
->
-<e-columns>
-  <e-columns>
-    <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
-    <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
-    <e-column field='EmployeeID' headerText='EmployeeID' textAlign='Right' width=90></e-column>
-    <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
-  </e-columns>
-</e-columns>
-</ejs-treegrid>
-
-<!-- <ejs-grid [dataSource]='remoteData' [allowPaging]="true" [pageSettings]="pageSettings">
-<e-columns>
-  <e-column field='OrderID' headerText='Order ID' textAlign='Right' width=90></e-column>
-  <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
-  <e-column field='EmployeeID' headerText='EmployeeID' textAlign='Right' width=90></e-column>
-  <e-column field='ShipName' headerText='Ship Name' textAlign='Left' width=120></e-column>
-</e-columns>
-</ejs-grid> -->
- -->
+    <e-columns>
+      <e-column
+        field="TaskID"
+        headerText="Task ID"
+        width="120"
+        textAlign="Right"
+        isPrimaryKey="true"
+      ></e-column>
+      <e-column
+        field="TaskName"
+        headerText="Task Name"
+        width="120"
+        textAlign="Right"
+      ></e-column>
+      <e-column field="Progress" headerText="Progress" width="150"></e-column>
+      <e-column field="Priority" headerText="Priority" width="170"></e-column>
+      <e-column
+        field="StartDate"
+        headerText="Start Date"
+        width="150"
+        format="dd/mm/yyyy"
+      ></e-column>
+      <e-column
+        field="EndDate"
+        headerText="End Date"
+        width="120"
+        textAlign="Right"
+        format="dd/mm/yyy"
+      >
+      </e-column>
+    </e-columns>
+  </ejs-treegrid>
+</div>
