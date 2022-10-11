@@ -1,41 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { SortSettingsModel, FilterSettingsModel, Toolbar } from '@syncfusion/ej2-angular-treegrid';
-import { data } from './datasource';
-import { DataManager, WebApiAdaptor, UrlAdaptor } from '@syncfusion/ej2-data';
-import { io } from "socket.io-client";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ContextMenuItem,
+  ContextMenuService, EditSettingsModel, FilterSettingsModel,
+  SortSettingsModel,
+  TreeGridComponent
+} from '@syncfusion/ej2-angular-treegrid';
+import { Ajax } from '@syncfusion/ej2-base';
+import { dataSource, sampleData } from './datasource';
+// import { sampleData } from './sample.data';
 
-
-const SERVICE_URI = 'https://ej2services.syncfusion.com/production/web-services/api/SelfReferenceData';
+const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [ContextMenuService],
 })
 export class AppComponent implements OnInit {
-  public data: Object[];
+  public localData: Object[];
   public sortSettings: SortSettingsModel;
   public filterSettings: FilterSettingsModel;
-  public remoteData: DataManager;
-  public toolbar: Toolbar;
-  public validationrules: Object;
-
-  title = `mgm's task`;
+  public statusCode: number;
+  public contextMenuItems: ContextMenuItem[] = [
+    'SortAscending',
+    'SortDescending',
+    'Edit',
+    'Delete',
+    'Save',
+    'Cancel',
+    'FirstPage',
+    'PrevPage',
+    'LastPage',
+    'NextPage',
+  ];
+  @ViewChild('treegrid')
+  public grid: TreeGridComponent;
+  public editing: EditSettingsModel = {
+    allowEditing: true,
+    allowDeleting: true,
+  };
 
   ngOnInit(): void {
-    this.data = data;
+    dataSource();
+    this.localData = sampleData;
     this.sortSettings = {
-      // columns: [
-      //   { field: 'id', direction: 'Ascending' },
-      //   { field: 'name', direction: 'Descending' },
-      // ]
+      columns: [
+        { field: 'taskID', direction: 'Descending' },
+        { field: 'taskName', direction: 'Ascending' },
+      ],
     };
-    this.filterSettings = { ignoreAccent: true, immediateModeDelay: 500, mode: "Immediate" };
-    this.remoteData = new DataManager({ url: SERVICE_URI, adaptor: new WebApiAdaptor, crossDomain: false });
-    this.validationrules = { required: true };
 
-    // this.toolbar;
-
-    console.log(this.remoteData)
+    const ajax = new Ajax(SERVICE_URI, 'GET');
+    ajax.send();
+    ajax.onSuccess = (data: string, ajax: any) => {
+      this.grid.dataSource = JSON.parse(data);
+      // this.grid.dataSource = this.localData;
+      this.statusCode = ajax.httpRequest.status;
+    };
   }
 }

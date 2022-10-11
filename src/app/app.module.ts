@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserModule } from '@angular/platform-browser';;
+import { FilterService, FreezeService, SortService, ToolbarService, TreeGridAllModule, TreeGridModule, VirtualScrollService } from '@syncfusion/ej2-angular-treegrid';
+import { enableRipple } from '@syncfusion/ej2-base';
 import { AppComponent } from './app.component';
-import { TreeGridAllModule, SortService, FilterService, ToolbarService, FreezeService } from '@syncfusion/ej2-angular-treegrid';
-import { GridModule } from '@syncfusion/ej2-angular-grids';
+
+enableRipple(true);
 
 @NgModule({
   declarations: [
@@ -12,9 +13,9 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
   imports: [
     BrowserModule,
     TreeGridAllModule,
-    GridModule
+    TreeGridModule
   ],
-  providers: [SortService, FilterService, ToolbarService, FreezeService],
+  providers: [SortService, FilterService, ToolbarService, FreezeService, VirtualScrollService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
