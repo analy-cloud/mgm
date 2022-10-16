@@ -1,13 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   ContextMenuItem,
-  ContextMenuService, EditSettingsModel, FilterSettingsModel,
+  ContextMenuService,
+  EditSettingsModel,
+  FilterSettingsModel,
   SortSettingsModel,
-  TreeGridComponent
+  TreeGridComponent,
 } from '@syncfusion/ej2-angular-treegrid';
 import { Ajax } from '@syncfusion/ej2-base';
 import { dataSource, sampleData } from './datasource';
-// import { sampleData } from './sample.data';
+import { MenuEventArgs } from '@syncfusion/ej2-navigations';
+import { SaveEventArgs } from '@syncfusion/ej2-grids';
+// import {}
 
 const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
 
@@ -29,19 +33,17 @@ export class AppComponent implements OnInit {
     'Delete',
     'Save',
     'Cancel',
-    'FirstPage',
-    'PrevPage',
-    'LastPage',
-    'NextPage',
   ];
   @ViewChild('treegrid')
-  public grid: TreeGridComponent;
-  public editing: EditSettingsModel = {
-    allowEditing: true,
-    allowDeleting: true,
-  };
+  public treeGrid: TreeGridComponent;
+  public editSettings: EditSettingsModel;
+  public gridData: IGridDataModel;
+  public targetElement: HTMLElement;
+
 
   ngOnInit(): void {
+    // this.targetElement = this.container.nativeElement.parentElement;
+
     dataSource();
     this.localData = sampleData;
     this.sortSettings = {
@@ -54,9 +56,31 @@ export class AppComponent implements OnInit {
     const ajax = new Ajax(SERVICE_URI, 'GET');
     ajax.send();
     ajax.onSuccess = (data: string, ajax: any) => {
-      this.grid.dataSource = JSON.parse(data);
-      // this.grid.dataSource = this.localData;
+      this.treeGrid.dataSource = JSON.parse(data);
+      // this.treeGrid.dataSource = this.localData;
       this.statusCode = ajax.httpRequest.status;
     };
+
+    this.editSettings = {
+      allowEditing: true,
+      allowAdding: true,
+      allowDeleting: true,
+      mode: 'Dialog',
+    };
   }
+  contextMenuClick(args?: MenuEventArgs): void {
+    console.log(this.contextMenuItems);
+    if (args) {
+      console.log(args);
+    }
+  }
+  actionBegin(args: SaveEventArgs): void {
+    console.log(args);
+  }
+}
+export interface IGridDataModel {
+  TaskID?: Number
+  TaskName?: String
+  StartDate?: Date
+  EndDate?: Date
 }
