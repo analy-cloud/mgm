@@ -1,69 +1,69 @@
-<h1 class="e-headercell">{{ statusCode }}</h1>
+<h1>{{ statusCode }}</h1>
+<!-- [dataSource]="data" -->
+<!-- [allowSorting]="true" [sortSettings]="sortSettings" -->
 <div id="treegrid">
-  <ejs-treegrid
-    [treeColumnIndex]="1"
-    [contextMenuItems]="contextMenuItems"
-    [allowSorting]="true"
-    [sortSettings]="sortSettings"
-    [editSettings]="editSettings"
-    (contextMenuClick)="contextMenuClick($event)"
-    (actionBegin)="actionBegin($event)"
-    hasChildMapping="isParent"
-    idMapping="TaskID"
-    parentIdMapping="parentID"
-    height="100%"
-    isPrimaryKey="true"
-    #treegrid
-  >
+  <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
+    <h1>{{column.field}}...</h1>
+  </ng-template>
+  <ejs-treegrid [treeColumnIndex]="1" [dataSource]="data" (actionBegin)="actionBegin($event)" hasChildMapping="isParent"
+    idMapping="TaskID" parentIdMapping="parentID" height="100%" isPrimaryKey="true" #treegrid
+    [contextMenuItems]='contextMenuItemsCol' (contextMenuOpen)='contextMenuOpen($event)'
+    (contextMenuClick)="contextMenuClick($event)">
+
     <e-columns>
-      <e-column
-        field="TaskID"
-        headerText="Task ID"
-        width="120"
-        textAlign="Right"
-        isPrimaryKey="true"
-      ></e-column>
-      <e-column
-        field="TaskName"
-        headerText="Task Name"
-        width="120"
-        textAlign="Right"
-      ></e-column>
-      <e-column field="Progress" headerText="Progress" width="150"></e-column>
-      <e-column field="Priority" headerText="Priority" width="170"></e-column>
-      <e-column
-        field="StartDate"
-        headerText="Start Date"
-        width="150"
-        format="dd/mm/yyyy"
-      ></e-column>
-      <e-column
-        field="EndDate"
-        headerText="End Date"
-        width="120"
-        textAlign="Right"
-        format="dd/mm/yyy"
-      >
-      </e-column>
+      <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
+        <e-column [field]="column.field" [type]="column.type" headerText="{{ column.headerText }}"
+          [allowEditing]="column.allowEditing" [isPrimaryKey]="
+          column.isPrimaryKey != null ? column.isPrimaryKey : null
+        " [width]="column.width">
+        </e-column>
+      </ng-template>
     </e-columns>
     <ng-template #editSettingsTemplate let-data>
       <div ngForm>
         <div class="form-group">
           <div class="e-float-input e-control-wrapper">
-            {{ data | json }}...
-            <!-- <div class=""> -->
-            <input
-              name="TaskID"
-              type="number"
-              required
-              [ngModel]="data.TaskID"
-              [attr.disabled]="!data.isAdd ? '' : null"
-            />
+            <input name="TaskID" type="number" [attr.required]="!data.isAdd ? '' : null" [ngModel]="data.TaskID"
+              [attr.disabled]="!data.isAdd ? '' : null" />
             <label for="TaskID" class="e-float-text e-label-top">Task ID</label>
-            <!-- <label for="TaskID" class="">Task ID</label> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="e-float-input e-control-wrapper">
+            <input name="TaskName" type="string" required [ngModel]="data.TaskName" />
+            <label for="TaskName" class="e-float-text e-label-top">Task Name</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="e-float-input e-control-wrapper">
+            <input name="Progress" type="string" required [ngModel]="data.Progress" />
+            <label for="Progress" class="e-float-text e-label-top">Progress</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="e-float-input e-control-wrapper">
+            <input name="Priority" type="string" required [ngModel]="data.Priority" />
+            <label for="Priority" class="e-float-text e-label-top">Priority</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="e-float-input e-control-wrapper">
+            <input name="StartDate" type="string" required [ngModel]="data.StartDate" />
+            <label for="StartDate" class="e-float-text e-label-top">StartDate</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="e-float-input e-control-wrapper">
+            <input name="EndDate" type="string" required [ngModel]="data.EndDate" />
+            <label for="EndDate" class="e-float-text e-label-top">EndDate</label>
           </div>
         </div>
       </div>
     </ng-template>
   </ejs-treegrid>
+
+
+  <!-- ADD Colunm Dialog -->
+  <app-add-column [addColumnDialogVisible$]="addColumnDialogVisible$">
+  </app-add-column>
 </div>
