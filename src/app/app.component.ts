@@ -13,6 +13,7 @@ import { SaveEventArgs } from '@syncfusion/ej2-grids';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { BehaviorSubject } from 'rxjs';
 import { SharedService } from './shared.service';
+import { style } from '@angular/animations';
 
 const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
 
@@ -25,23 +26,20 @@ const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
 export class AppComponent implements OnInit {
   public data: Object[] = [];
   public treeGridColumns: any;
-  public sortSettings: SortSettingsModel;
-  public filterSettings: FilterSettingsModel;
   public statusCode: number;
-  public nam: string = 'vaasu';
   @ViewChild('treegrid')
   public treeGrid: TreeGridComponent;
   public contextMenuItemsCol: Object[];
   @ViewChild('ejDialog') ejDialog: DialogComponent;
   addColumnDialogVisible$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
-
   constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
-    if (this.sharedService.subsVar == undefined) {
+    if (this.sharedService.subsVar === undefined) {
       this.sharedService.subsVar =
         this.sharedService.addTreeGridColumnEvent.subscribe((data: object) => {
+          // this.sharedService.treeGrids();
           this.addColumn(data);
           console.log({ __name: data });
         });
@@ -136,27 +134,44 @@ export class AppComponent implements OnInit {
       },
     ];
   }
-  actionBegin(args: SaveEventArgs): void {
-    console.log(args);
-  }
 
-  ngAfterViewInit(): void {}
+  public parentTreeComponent: any;
+  ngAfterViewInit(): void {
+    this.parentTreeComponent = new BehaviorSubject<any>('');
+  }
 
   private indexofCol = 0;
 
   addColumn(obj: object) {
     // const obj = {
     //   visible: true,
-    //   headerText: 'Vasu',
+    //   headerText: 'this.treeGrid.columns.splice(this.indexofCol + 1, 0, obj as any); this.treeGrid.columns.splice(this.indexofCol + 1, 0, obj as any); this.treeGrid.columns.splice(this.indexofCol + 1, 0, obj as any);',
     //   showInColumnChooser: true,
     //   filter: { type: 'Menu' },
     //   isPrimaryKey: false,
-    //   width: 250,
+    //   width: 150,
     //   BackgroundColor: 'red',
+    //   allowTextWrap: true
     // };
     // alert(this.indexofCol);
     this.treeGrid.columns.splice(this.indexofCol + 1, 0, obj as any);
     this.treeGrid.refreshColumns();
+  }
+
+  actionBegin(args: SaveEventArgs): void {
+    console.log(args);
+    const { fontSize, wrap } = this.parentTreeComponent.value.childAttrs;
+    Array.from(
+      document.querySelectorAll(
+        `[data-uniqueid='${this.parentTreeComponent.value.dataId}'] .e-headertext`
+      )
+    ).forEach((d: any) => (d.style.fontSize = fontSize()));
+    const headercelldiv: any = document.querySelector(
+      `[data-uniqueid='${this.parentTreeComponent.value.dataId}'] .e-headercelldiv`
+    );
+    Object.entries(wrap())?.map((d) => {
+      headercelldiv.style[d[0]] = d[1];
+    });
   }
 
   contextMenuClick(args: any): void {

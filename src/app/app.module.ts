@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ColorPickerAllModule } from '@syncfusion/ej2-angular-inputs';
 import { ContextMenuModule } from '@syncfusion/ej2-angular-navigations';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
+import { RadioButtonModule } from '@syncfusion/ej2-angular-buttons';
 
 import {
   EditService,
@@ -13,7 +14,7 @@ import {
   ToolbarService,
   TreeGridAllModule,
   TreeGridModule,
-  VirtualScrollService
+  VirtualScrollService,
 } from '@syncfusion/ej2-angular-treegrid';
 
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
@@ -35,6 +36,7 @@ enableRipple(true);
     ContextMenuModule,
     DropDownListModule,
     ColorPickerAllModule,
+    RadioButtonModule,
   ],
   providers: [
     SortService,

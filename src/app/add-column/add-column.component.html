@@ -19,7 +19,7 @@
               <div class="e-float-input e-control-wrapper">
                 <label for="dataType" class="e-float-text e-label-top" [ngStyle]="{marginTop: '-22px'}">Data
                   Type</label>
-                <ejs-dropdownlist name="dataType" [dataSource]="dataType" placeholder=""></ejs-dropdownlist>
+                <ejs-dropdownlist name="dataType" [dataSource]="dataType" placeholder="" ngModel></ejs-dropdownlist>
               </div>
               <!-- <span class="help-text" *ngIf="!dataType.valid && dataType.touched">Please enter valid column
                 name</span> -->
@@ -27,50 +27,60 @@
 
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input type="number" id="minColWidth" #nameval='ngModel' name="minColWidth" required ngModel min="0">
-                <label for="minColWidth" class="e-float-text e-label-top">Minimum Column Width</label>
+                <input type="number" id="width" #nameval='ngModel' name="width" required ngModel min="0">
+                <label for="width" class="e-float-text e-label-top">Minimum Column Width</label>
               </div>
             </div>
 
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input type="number" id="fontSize" #nameval='ngModel' name="fontSize" required ngModel min="12">
+                <input type="number" id="fontSize" #nameval='ngModel' name="fontSize" required ngModel>
                 <label for="fontSize" class="e-float-text e-label-top">Font Size</label>
               </div>
             </div>
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input ejs-colorpicker type="color" id="fontColor" mode="Palette" [modeSwitcher]="false"
-                  [showButtons]="false" />
-                <input type="text" id="fontColor" #nameval='ngModel' name="fontColor" required ngModel>
+                <input type="color" id="fontColor" name="fontColor" [(ngModel)]="fontColor"
+                  (ngModelChange)="selectedColor=$event" />
                 <label for="fontColor" class="e-float-text e-label-top">Font Color</label>
               </div>
             </div>
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input ejs-colorpicker type='color' id='colorpicker' />
-                <input type="text" id="backgroundColor" #nameval='ngModel' name="backgroundColor" required ngModel>
+                <input type="color" id="backgroundColor" name="backgroundColor" [(ngModel)]="backgroundColor"
+                  (ngModelChange)="selectedColor=$event" />
                 <label for="backgroundColor" class="e-float-text e-label-top">Background Color</label>
               </div>
             </div>
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input type="text" id="alignment" #nameval='ngModel' name="alignment" required ngModel>
-                <label for="alignment" class="e-float-text e-label-top">Alignment</label>
+                <ejs-dropdownlist name="textAlign" [dataSource]="textAlignment" placeholder="" ngModel>
+                </ejs-dropdownlist>
+                <label for="textAlign" class="e-float-text e-label-top"
+                  [ngStyle]="{marginTop: '-22px'}">Alignment</label>
               </div>
             </div>
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-float-input e-control-wrapper">
-                <input type="number" id="textWrap" #nameval='ngModel' name="textWrap" required ngModel>
-                <label for="textWrap" class="e-float-text e-label-top">Text Wrap</label>
+                <ul>
+                  <li>
+                    <ejs-radiobutton label="Wrap the column text" name="allowTextWrap" value=true ngModel>
+                    </ejs-radiobutton>
+                  </li>
+                  <li>
+                    <ejs-radiobutton label="No Wrap" name="allowTextWrap" value=false ngModel></ejs-radiobutton>
+                  </li>
+                </ul>
+
               </div>
             </div>
 
             <div class="form-group" style="padding-top: 11px;">
               <div class="e-footer-content">
                 <div class="submitBtn">
+                  <!-- [disabled]="!addColumnForm.invalid"  -->
                   <button class="e-control e-btn e-lib e-primary e-flat" id="submit-btn"
-                    [disabled]="!addColumnForm.invalid" (click)="saveAddColumn()">Save</button>
+                    (click)="saveAddColumn()">Save</button>
                   <button class="e-control e-btn e-lib e-flat" id="cancel" (click)="hideDialog()">Cancel</button>
                 </div>
               </div>

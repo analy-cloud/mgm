@@ -8,7 +8,7 @@
   <ejs-treegrid [treeColumnIndex]="1" [dataSource]="data" (actionBegin)="actionBegin($event)" hasChildMapping="isParent"
     idMapping="TaskID" parentIdMapping="parentID" height="100%" isPrimaryKey="true" #treegrid
     [contextMenuItems]='contextMenuItemsCol' (contextMenuOpen)='contextMenuOpen($event)'
-    (contextMenuClick)="contextMenuClick($event)">
+    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true">
 
     <e-columns>
       <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
@@ -64,6 +64,6 @@
 
 
   <!-- ADD Colunm Dialog -->
-  <app-add-column [addColumnDialogVisible$]="addColumnDialogVisible$">
+  <app-add-column [addColumnDialogVisible$]="addColumnDialogVisible$" [parentTreeComponent]="parentTreeComponent">
   </app-add-column>
 </div>

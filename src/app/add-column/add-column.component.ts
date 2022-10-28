@@ -1,19 +1,14 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { EmitType } from '@syncfusion/ej2-base';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-  NgForm,
-} from '@angular/forms';
-import { Subscription, BehaviorSubject } from 'rxjs';
-import { DropDownTreeComponent } from '@syncfusion/ej2-angular-dropdowns';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 import { SharedService } from '../shared.service';
 
+
 import {
-  DialogComponent,
   AnimationSettingsModel,
+  DialogComponent
 } from '@syncfusion/ej2-angular-popups';
 
 @Component({
@@ -32,21 +27,65 @@ export class AddColumnComponent implements OnInit {
     'Boolean',
     'DropDownList',
   ];
+  public textAlignment: Array<string> = ['Left', 'Center', 'Right', 'Justify'];
   clickEventSubs: Subscription;
-  constructor(private sharedService: SharedService) {
-  }
+  constructor(private sharedService: SharedService) {}
 
   @Input() addColumnDialogVisible$: BehaviorSubject<boolean>;
-
-  // addColumnData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  @Input() parentTreeComponent: BehaviorSubject<any>;
 
   public animationSettings: AnimationSettingsModel = { effect: 'FadeZoom' };
   public hideDialog: EmitType<object> = () => {
     this.addColumnForm.reset();
     this.addColumnDialogVisible$.next(false);
   };
+  public fontColor: string = '#000000';
+  public backgroundColor: string = '#FFFFFF';
+  public selectedColor: string;
   ngOnInit(): void {}
+
+  
   saveAddColumn() {
-    this.sharedService.onAddTreeGridFn(this.addColumnForm.value);
+    const { value } = this.addColumnForm;
+    const childAttrs = {
+      wrap: () => {
+        if (value.allowTextWrap === '' || value.allowTextWrap === 'false') {
+          return false;
+        }
+        return {
+          height: 'Auto',
+          lineHeight: '18px',
+          overflowWrap: 'break-word',
+          textOverflow: 'clip',
+          whiteSpace: 'normal',
+          wordWrap: 'break-word',
+        };
+      },
+      fontSize: () => {
+        if (value.fontSize === null || value.fontSize === '') {
+          return '12px';
+        } else {
+          return `${value.fontSize}px`;
+        }
+      },
+    };
+
+    const colunmData = {
+      ...value,
+      customAttributes: {
+        'data-uniqueId': uuid(),
+        style: {
+          backgroundColor: this.addColumnForm.value.backgroundColor,
+          color: this.addColumnForm.value.fontColor,
+        },
+      },
+    };
+    this.parentTreeComponent.next({
+      dataId: colunmData.customAttributes['data-uniqueId'],
+      childAttrs
+    });
+    // console.log(this.parentTreeComponent.value.element, 'fontsixe');
+    this.sharedService.onAddTreeGridFn({ ...colunmData });
+    this.addColumnDialogVisible$.next(false);
   }
 }
