@@ -1,0 +1,99 @@
+<div class="control-section">
+    <div class="col-lg-12">
+        <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
+            <ejs-dialog id="templateEditColumn" #templateEditColumn width='450px'
+                [visible]='editColumnDialogVisible$.value' header="Edit Column" allowDragging="true"
+                [closeOnEscape]="false">
+                <ng-template #content>
+                    <form id="editColumnForm" #editColumnForm="ngForm" disabled>
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <input type="text" id="headerText" #nameval='ngModel' name="headerText" required
+                                    [ngModel]="editColumnData$.value?.treeData?.headerText" #headerText='ngModel'>
+                                <label for="headerText" class="e-float-text e-label-top">Colunm Name</label>
+                                <span class="help-text" *ngIf="!headerText.valid && headerText.touched">Please enter
+                                    valid column
+                                    name</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <label for="type" class="e-float-text e-label-top"
+                                    [ngStyle]="{marginTop: '-22px'}">Data
+                                    Type</label>
+                                <ejs-dropdownlist name="type" [dataSource]="dataType" placeholder="" [ngModel]="editColumnData$.value?.treeData?.type">
+                                </ejs-dropdownlist>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <input type="number" id="width" #nameval='ngModel' name="width" required [ngModel]="editColumnData$.value?.treeData?.width"
+                                    min="150">
+                                <label for="width" class="e-float-text e-label-top">Minimum Column Width</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <input id="fontSize" #nameval='ngModel' name="fontSize" required [ngModel]="editColumnData$.value?.fontSize?.replace('px', '')">
+                                <label for="fontSize" class="e-float-text e-label-top">Font Size</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <input type="color" id="fontColor" name="fontColor" [(ngModel)]="editColumnData$.value.color"
+                                    (ngModelChange)="selectedColor=$event" />
+                                <label for="fontColor" class="e-float-text e-label-top">Font Color</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <input type="color" id="backgroundColor" name="backgroundColor"
+                                    [(ngModel)]="editColumnData$.value.backgroundColor" (ngModelChange)="selectedColor=$event" />
+                                <label for="backgroundColor" class="e-float-text e-label-top">Background Color</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <ejs-dropdownlist name="textAlign" [dataSource]="textAlignment" placeholder="" [ngModel]="editColumnData$.value?.textAlign">
+                                </ejs-dropdownlist>
+                                <label for="textAlign" class="e-float-text e-label-top"
+                                    [ngStyle]="{marginTop: '-22px'}">Alignment</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <ul>
+                                    <li>
+                                        <ejs-radiobutton label="Wrap the column text" name="allowTextWrap" value=true
+                                            ngModel>
+                                        </ejs-radiobutton>
+                                    </li>
+                                    <li>
+                                        <ejs-radiobutton label="No Wrap" name="allowTextWrap" value=false ngModel>
+                                        </ejs-radiobutton>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-footer-content">
+                                <div class="submitBtn">
+                                    <!-- [disabled]="!editColumnForm.invalid"  -->
+                                    <button class="e-control e-btn e-lib e-primary e-flat" id="submit-btn"
+                                        (click)="saveEditColumn()">Save</button>
+                                    <button class="e-control e-btn e-lib e-flat" id="cancel"
+                                        (click)="hideDialog()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </ejs-dialog>
+        </div>
+    </div>
+</div>

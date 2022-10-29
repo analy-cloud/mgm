@@ -21,11 +21,13 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { AddColumnComponent } from './add-column/add-column.component';
 import { AppComponent } from './app.component';
+import { EditColumnComponent } from './edit-column/edit-column.component';
+import { ViewColumnComponent } from './view-column/view-column.component';
 
 enableRipple(true);
 
 @NgModule({
-  declarations: [AppComponent, AddColumnComponent],
+  declarations: [AppComponent, AddColumnComponent, EditColumnComponent, ViewColumnComponent],
   imports: [
     BrowserModule,
     TreeGridAllModule,

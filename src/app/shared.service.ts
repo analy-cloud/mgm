@@ -7,6 +7,7 @@ import { Subscription, Observable } from 'rxjs';
 export class SharedService {
 
   addTreeGridColumnEvent = new EventEmitter();
+  editTreeGridColumnEvent = new EventEmitter();
   treeGrids: Subscription;
   subsVar: Subscription;
 
@@ -14,5 +15,8 @@ export class SharedService {
 
   onAddTreeGridFn(data: any) {
     this.addTreeGridColumnEvent.emit(data);
+  }
+  onEditTreeGridFn(data: any) {
+    this.editTreeGridColumnEvent.emit(data);
   }
 }

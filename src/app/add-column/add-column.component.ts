@@ -5,10 +5,9 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { SharedService } from '../shared.service';
 
-
 import {
   AnimationSettingsModel,
-  DialogComponent
+  DialogComponent,
 } from '@syncfusion/ej2-angular-popups';
 
 @Component({
@@ -22,10 +21,10 @@ export class AddColumnComponent implements OnInit {
   @ViewChild('addColumnForm')
   public addColumnForm: FormGroup;
   public dataType: Array<string> = [
-    'Text',
-    'Number',
-    'Boolean',
-    'DropDownList',
+    'string',
+    'number',
+    'boolean',
+    'dropdownlist',
   ];
   public textAlignment: Array<string> = ['Left', 'Center', 'Right', 'Justify'];
   clickEventSubs: Subscription;
@@ -39,12 +38,11 @@ export class AddColumnComponent implements OnInit {
     this.addColumnForm.reset();
     this.addColumnDialogVisible$.next(false);
   };
-  public fontColor: string = '#000000';
+  public fontColor: string = '#757575';
   public backgroundColor: string = '#FFFFFF';
   public selectedColor: string;
   ngOnInit(): void {}
 
-  
   saveAddColumn() {
     const { value } = this.addColumnForm;
     const childAttrs = {
@@ -69,7 +67,6 @@ export class AddColumnComponent implements OnInit {
         }
       },
     };
-
     const colunmData = {
       ...value,
       customAttributes: {
@@ -80,11 +77,11 @@ export class AddColumnComponent implements OnInit {
         },
       },
     };
+
     this.parentTreeComponent.next({
       dataId: colunmData.customAttributes['data-uniqueId'],
-      childAttrs
+      childAttrs,
     });
-    // console.log(this.parentTreeComponent.value.element, 'fontsixe');
     this.sharedService.onAddTreeGridFn({ ...colunmData });
     this.addColumnDialogVisible$.next(false);
   }

@@ -19,7 +19,7 @@
         </e-column>
       </ng-template>
     </e-columns>
-    <ng-template #editSettingsTemplate let-data>
+    <!-- <ng-template #editSettingsTemplate let-data>
       <div ngForm>
         <div class="form-group">
           <div class="e-float-input e-control-wrapper">
@@ -59,11 +59,15 @@
           </div>
         </div>
       </div>
-    </ng-template>
+    </ng-template> -->
   </ejs-treegrid>
 
 
   <!-- ADD Colunm Dialog -->
   <app-add-column [addColumnDialogVisible$]="addColumnDialogVisible$" [parentTreeComponent]="parentTreeComponent">
   </app-add-column>
+  <!-- Edit Colunm Dialog -->
+  <app-edit-column [editColumnDialogVisible$]="editColumnDialogVisible$" [editColumnData$]="editColumnData$"
+    [parentTreeComponent]="parentTreeComponent">
+  </app-edit-column>
 </div>

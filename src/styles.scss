@@ -10,3 +10,10 @@
   margin: 0;
   list-style: none;
 }
+.e-headercell > * {
+  pointer-events: none;
+}
+.e-headercell{
+  color: #757575;
+  font-weight: bold;
+}
