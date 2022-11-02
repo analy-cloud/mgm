@@ -11,7 +11,7 @@ import { dataSource, sampleData } from './datasource';
 
 import { SaveEventArgs } from '@syncfusion/ej2-grids';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 import { SharedService } from './shared.service';
 
 const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
@@ -23,6 +23,8 @@ const SERVICE_URI = 'https://analy-data-center.vaasu.repl.co/api/tasks';
   providers: [ContextMenuService],
 })
 export class AppComponent implements OnInit {
+  public infiniteScrollSettings: Object;
+
   public data: Object[] = [];
   public treeGridColumns: any;
   public statusCode: number;
@@ -36,6 +38,13 @@ export class AppComponent implements OnInit {
   editColumnDialogVisible$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
   editColumnData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  viewColumnDialogVisible$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  viewColumnDialogColumnData$: BehaviorSubject<any> = new BehaviorSubject<any>(
+    {}
+  );
+  deleteColumnDialogVisible$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   constructor(private sharedService: SharedService) {}
 
@@ -47,9 +56,13 @@ export class AppComponent implements OnInit {
         });
       this.sharedService.editTreeGridColumnEvent.subscribe((data: object) => {
         this.editColumn(data);
-        console.log({ __name: data });
+      });
+      this.sharedService.viewTreeGridColumnEvent.subscribe((data: object) => {
+        this.viewAndUpdateColumn(data);
       });
     }
+    
+    this.infiniteScrollSettings = { enableCache: true};
 
     this.treeGridColumns = [
       {
@@ -161,12 +174,13 @@ export class AppComponent implements OnInit {
     Object.entries(obj)?.map((d) => {
       this.treeGrid.columns[this.indexofCol][d[0]] = d[1];
     });
-    console.log({ obj, __: this.treeGrid.columns });
+    this.treeGrid.refreshColumns();
+  }
+  viewAndUpdateColumn(obj: any) {
     this.treeGrid.refreshColumns();
   }
 
   actionBegin(args: SaveEventArgs): void {
-    // console.log(args, this.menuId);
     if (this.menuId === 'AddCol') {
     }
     switch (this.menuId) {
@@ -210,7 +224,7 @@ export class AppComponent implements OnInit {
 
   contextMenuClick(args: any): void {
     const {
-      column: { index },
+      column: { index, field },
       item: {
         properties: { id: menuId },
       },
@@ -249,6 +263,24 @@ export class AppComponent implements OnInit {
 
       // this.addColumnDialogVisible$.next(true);
       // this.indexofCol = index;
+    }
+    if (menuId === 'ViewCol') {
+      this.viewColumnDialogVisible$.next(true);
+      this.viewColumnDialogColumnData$.next(this.treeGrid);
+    }
+    if (menuId === 'DelCol') {
+      this.deleteColumnDialogVisible$.next(true);
+      this.viewColumnDialogColumnData$.next({
+        component: this.treeGrid,
+        field,
+      });
+    }
+    if (menuId === 'ChooseCol') {
+      this.treeGrid.showColumnChooser = true;
+      setTimeout(() => {
+        this.treeGrid.columnChooserModule?.openColumnChooser();
+      }, 0);
+      // timer(1000, this.treeGrid.columnChooserModule?.openColumnChooser());
     }
   }
   beforeOpen(args: TreeActionEventArgs): void {

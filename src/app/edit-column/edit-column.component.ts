@@ -2,12 +2,11 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { EmitType } from '@syncfusion/ej2-base';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { v4 as uuid } from 'uuid';
 import { SharedService } from '../shared.service';
 
 import {
   AnimationSettingsModel,
-  DialogComponent,
+  DialogComponent
 } from '@syncfusion/ej2-angular-popups';
 
 @Component({

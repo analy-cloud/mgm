@@ -8,7 +8,7 @@
   <ejs-treegrid [treeColumnIndex]="1" [dataSource]="data" (actionBegin)="actionBegin($event)" hasChildMapping="isParent"
     idMapping="TaskID" parentIdMapping="parentID" height="100%" isPrimaryKey="true" #treegrid
     [contextMenuItems]='contextMenuItemsCol' (contextMenuOpen)='contextMenuOpen($event)'
-    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true">
+    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true" [infiniteScrollSettings]='infiniteScrollSettings'>
 
     <e-columns>
       <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
@@ -70,4 +70,8 @@
   <app-edit-column [editColumnDialogVisible$]="editColumnDialogVisible$" [editColumnData$]="editColumnData$"
     [parentTreeComponent]="parentTreeComponent">
   </app-edit-column>
+  <app-view-column [viewColumnDialogVisible$]="viewColumnDialogVisible$"
+    [viewColumnDialogColumnData$]="viewColumnDialogColumnData$"></app-view-column>
+  <app-del-column [deleteColumnDialogVisible$]="deleteColumnDialogVisible$"
+    [viewColumnDialogColumnData$]="viewColumnDialogColumnData$"></app-del-column>
 </div>

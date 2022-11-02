@@ -33,6 +33,7 @@
     "@syncfusion/ej2-angular-treegrid": "^20.2.45",
     "@syncfusion/ej2-data": "^20.2.45",
     "@syncfusion/ej2-grids": "^20.3.49",
+    "ngx-sortable": "^2.1.0",
     "rxjs": "~7.5.0",
     "socket.io-client": "^4.5.1",
     "tslib": "^2.3.0",

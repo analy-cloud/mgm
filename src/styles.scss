@@ -13,7 +13,24 @@
 .e-headercell > * {
   pointer-events: none;
 }
-.e-headercell{
+.e-headercell {
   color: #757575;
   font-weight: bold;
+}
+
+.sortable-container {
+  border: none !important;
+  min-width: 90%;
+  margin: auto;
+  padding: 10px;
+  .sortable-header {
+    display: none;
+  }
+  .sortable-list {
+    min-height: inherit;
+    .active {
+      min-width: inherit;
+      background: transparent !important;
+    }
+  }
 }
