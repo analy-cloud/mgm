@@ -1,11 +1,36 @@
-@import url('https://cdn.syncfusion.com/ej2/material.css');
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 
 #js-licensing {
-    display: none!important;
+  display: none !important;
 }
 
 * {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    padding: 0;
-    margin: 0;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.e-headercell > * {
+  pointer-events: none;
+}
+.e-headercell {
+  color: #757575;
+  font-weight: bold;
+}
+
+.sortable-container {
+  border: none !important;
+  min-width: 90%;
+  margin: auto;
+  padding: 10px;
+  .sortable-header {
+    display: none;
+  }
+  .sortable-list {
+    min-height: inherit;
+    .active {
+      min-width: inherit;
+      background: transparent !important;
+    }
+  }
 }

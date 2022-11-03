@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@syncfusion/ej2-angular-buttons": "^20.3.50",
     "@syncfusion/ej2-angular-dropdowns": "^20.3.50",
     "@syncfusion/ej2-angular-inputs": "^20.3.50",
     "@syncfusion/ej2-angular-navigations": "^20.3.49",
@@ -32,9 +33,11 @@
     "@syncfusion/ej2-angular-treegrid": "^20.2.45",
     "@syncfusion/ej2-data": "^20.2.45",
     "@syncfusion/ej2-grids": "^20.3.49",
+    "ngx-sortable": "^2.1.0",
     "rxjs": "~7.5.0",
     "socket.io-client": "^4.5.1",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -42,6 +45,7 @@
     "@angular/cli": "~14.2.5",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "@types/uuid": "^8.3.4",
     "concurrently": "^7.3.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",

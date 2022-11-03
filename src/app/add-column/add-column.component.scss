@@ -149,24 +149,18 @@ form#template_driven {
   text-align: right;
 }
 
-
-
-
-
-/* Icon customization */
-.e-colorpicker-wrapper #element+.e-split-btn-wrapper .e-split-btn .e-selected-color {
-  background: none;
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  width: 14px;
-  margin: 0px 2px;
-  border-bottom-color: #008000;
-}
-.e-colorpicker-wrapper #element+.e-split-btn-wrapper .e-split-btn .e-selected-color .e-split-preview {
-  display: none;
+input[type="color"] {
+  appearance: none;
+  width: 50px;
+  height: 27px;
+  cursor: default;
+  box-sizing: border-box;
+  background-color: #efefef;
+  border-image: initial;
+  padding: 0;
+  transition: all 0.5s;
 }
 
-.e-colorpicker-wrapper #element+.e-split-btn-wrapper .e-split-btn .e-selected-color::before {
-  content: 'e35c';
+input[type="color"]::-webkit-color-swatch {
+  border: none;
 }
-

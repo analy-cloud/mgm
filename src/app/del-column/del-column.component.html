@@ -1,0 +1,18 @@
+<div class="control-section">
+    <div class="col-lg-12">
+        <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
+            <ejs-dialog id="templateAddColumn" #templateAddColumn width='450px'
+                [visible]='deleteColumnDialogVisible$.value' header="Delete Colunm" allowDragging="true"
+                [closeOnEscape]="false" [buttons]="deleteButtons" [content]="deleteContent"
+                (beforeOpen)="beforeOpen()">
+                <span *ngIf="!isPrimaryKey">
+<!-- 
+                    {{viewColumnDialogColumnData$.value?.id | json}}
+                    <hr />
+                    Do you want to delete
+                    <strong>{{viewColumnDialogColumnData$.value?.component?.columns[viewColumnDialogColumnData$.value?.id]?.headerText}}</strong>? -->
+                </span>
+            </ejs-dialog>
+        </div>
+    </div>
+</div>

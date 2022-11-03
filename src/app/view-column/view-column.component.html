@@ -1,0 +1,36 @@
+<div class="control-section">
+    <div class="col-lg-12">
+        <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
+            <ejs-dialog id="templateEditColumn" #templateEditColumn width='450px' height="500px"
+                [visible]='viewColumnDialogVisible$.value' header="View Column" allowDragging="true"
+                [closeOnEscape]="false" [buttons]='buttons'>
+                
+                <ngx-sortable [items]="viewColumnDialogColumnData$.value.columns" [name]="'List'" (listSorted)="listOrderChanged($event)">
+                    <ng-template let-item="item">
+                        <div class="sortable-list-item">
+                            <!-- {{item.Name}} -->
+                            <div style="margin: 20px;">
+                                <div tabindex="0" class="e-card">
+                                    <div class="e-card-header">
+                                        <!-- <div class="e-card-header-image football">Colunm Name:</div> -->
+                                        <div class="e-card-header-caption">
+                                            <div class="e-card-header-title">
+                                                <span class="e-card-corner">Colunm Name:
+                                                </span>{{item.headerText}}
+                                            </div>
+                                            <div class="e-card-sub-title"> <span class="e-card-corner">Colunm Type:
+                                            </span>{{item.type}}</div>
+                                        </div>
+                                        <div id='container'>
+                                            <div id="chip"><i class="e-icons e-drag-and-drop icon"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngx-sortable>
+            </ejs-dialog>
+        </div>
+    </div>
+</div>
