@@ -3,12 +3,12 @@
 <!-- [allowSorting]="true" [sortSettings]="sortSettings" -->
 <div id="treegrid">
   <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
-    <h1>{{column.field}}...</h1>
   </ng-template>
   <ejs-treegrid [treeColumnIndex]="1" [dataSource]="data" (actionBegin)="actionBegin($event)" hasChildMapping="isParent"
-    idMapping="TaskID" parentIdMapping="parentID" height="100%" isPrimaryKey="true" #treegrid
+    idMapping="TaskID" parentIdMapping="parentID" height="900" isPrimaryKey="true" #treegrid
     [contextMenuItems]='contextMenuItemsCol' (contextMenuOpen)='contextMenuOpen($event)'
-    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true" [infiniteScrollSettings]='infiniteScrollSettings'>
+    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true"
+    [infiniteScrollSettings]="infiniteScrollSettings" childMapping="subtasks" [treeColumnIndex]='1' >
 
     <e-columns>
       <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">

@@ -61,15 +61,15 @@ export class AppComponent implements OnInit {
         this.viewAndUpdateColumn(data);
       });
     }
-    
-    this.infiniteScrollSettings = { enableCache: true};
+
+    this.infiniteScrollSettings = { enableCache: true };
 
     this.treeGridColumns = [
       {
         field: 'taskID',
         visible: true,
         headerText: 'Task ID',
-        width: 120,
+        width: 70,
         type: 'number',
         showInColumnChooser: true,
         filter: { type: 'Menu' },
@@ -280,7 +280,36 @@ export class AppComponent implements OnInit {
       setTimeout(() => {
         this.treeGrid.columnChooserModule?.openColumnChooser();
       }, 0);
-      // timer(1000, this.treeGrid.columnChooserModule?.openColumnChooser());
+    }
+    if (menuId === 'FreezeCol') {
+      this.treeGrid.frozenColumns = true;
+      setTimeout(() => {
+        this.treeGrid.frozenColumns = this.indexofCol + 1;
+      }, 0);
+    }
+    if (menuId === 'FilterCol') {
+      alert('In progress');
+      alert(
+        'https://github.com/syncfusion/ej2-angular-samples/blob/master/src/app/treegrid/filter.component.ts'
+      );
+      // this.treeGrid.allowfiltering = true;
+      // setTimeout(() => {
+      //   this.treeGrid.filterModule.isHierarchyFilter = true;
+      //   this.treeGrid.filterModule.isHierarchyFilter = true;
+      //   // this.treeGrid.filterModule?.openFilterMenu();
+      //   this.treeGrid.filterSettings.type = 'Menu'
+      //   this.treeGrid.filterSettings.hierarchyMode ='Both'
+      // }, 0);
+      // console.log((this.treeGrid.filterSettings));
+    }
+    if (menuId === 'MultiSort') {
+      this.treeGrid.allowSorting = true;
+      setTimeout(() => {}, 0);
+      console.log(
+        (this.treeGrid.sortSettings.columns = [
+          { field: 'taskID', direction: 'Ascending' },
+        ])
+      );
     }
   }
   beforeOpen(args: TreeActionEventArgs): void {
