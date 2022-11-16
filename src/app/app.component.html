@@ -1,14 +1,15 @@
 <h1>{{ statusCode }}</h1>
 <!-- [dataSource]="data" -->
 <!-- [allowSorting]="true" [sortSettings]="sortSettings" -->
+<!-- childMapping="subtasks" -->
 <div id="treegrid">
   <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
   </ng-template>
   <ejs-treegrid [treeColumnIndex]="1" [dataSource]="data" (actionBegin)="actionBegin($event)" hasChildMapping="isParent"
     idMapping="TaskID" parentIdMapping="parentID" height="900" isPrimaryKey="true" #treegrid
     [contextMenuItems]='contextMenuItemsCol' (contextMenuOpen)='contextMenuOpen($event)'
-    (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true"
-    [infiniteScrollSettings]="infiniteScrollSettings" childMapping="subtasks" [treeColumnIndex]='1' >
+    (actionComplete)="actionComplete($event)" (contextMenuClick)="contextMenuClick($event)" allowTextWrap="true"
+    [infiniteScrollSettings]="infiniteScrollSettings" [treeColumnIndex]='1'>
 
     <e-columns>
       <ng-template #template ngFor let-column [ngForOf]="treeGridColumns">
@@ -74,4 +75,8 @@
     [viewColumnDialogColumnData$]="viewColumnDialogColumnData$"></app-view-column>
   <app-del-column [deleteColumnDialogVisible$]="deleteColumnDialogVisible$"
     [viewColumnDialogColumnData$]="viewColumnDialogColumnData$"></app-del-column>
+  <app-sort-column [sortColumnDialogVisible$]="sortColumnDialogVisible$"
+    [viewColumnDialogColumnData$]="viewColumnDialogColumnData$" [columnNameData$]="columnNameData$"
+    [sortColumnDialogData$]="sortColumnDialogData$"></app-sort-column>
+  <app-add-row [addRowDialogVisible$]="addRowDialogVisible$"></app-add-row>
 </div>

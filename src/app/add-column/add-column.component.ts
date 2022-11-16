@@ -39,7 +39,7 @@ export class AddColumnComponent implements OnInit {
     this.addColumnDialogVisible$.next(false);
   };
   public fontColor: string = '#757575';
-  public backgroundColor: string = '#FFFFFF';
+  public backgroundColor: string;
   public selectedColor: string;
   ngOnInit(): void {}
 

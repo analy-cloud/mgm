@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RadioButtonModule } from '@syncfusion/ej2-angular-buttons';
+import {
+  RadioButtonModule,
+  CheckBoxModule,
+} from '@syncfusion/ej2-angular-buttons';
 import { ColorPickerAllModule } from '@syncfusion/ej2-angular-inputs';
 import { ContextMenuModule } from '@syncfusion/ej2-angular-navigations';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
@@ -25,6 +28,8 @@ import { EditColumnComponent } from './edit-column/edit-column.component';
 import { ViewColumnComponent } from './view-column/view-column.component';
 import { NgxSortableModule } from 'ngx-sortable';
 import { DelColumnComponent } from './del-column/del-column.component';
+import { SortColumnComponent } from './sort-column/sort-column.component';
+import { AddRowComponent } from './add-row/add-row.component';
 
 enableRipple(true);
 
@@ -35,6 +40,8 @@ enableRipple(true);
     EditColumnComponent,
     ViewColumnComponent,
     DelColumnComponent,
+    SortColumnComponent,
+    AddRowComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +54,7 @@ enableRipple(true);
     DropDownListModule,
     ColorPickerAllModule,
     RadioButtonModule,
+    CheckBoxModule,
     NgxSortableModule,
   ],
   providers: [

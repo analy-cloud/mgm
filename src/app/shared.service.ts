@@ -9,6 +9,7 @@ export class SharedService {
   addTreeGridColumnEvent = new EventEmitter();
   editTreeGridColumnEvent = new EventEmitter();
   viewTreeGridColumnEvent = new EventEmitter();
+  sortTreeGridColumnEvent = new EventEmitter();
   treeGrids: Subscription;
   subsVar: Subscription;
 
@@ -22,5 +23,8 @@ export class SharedService {
   }
   onViewTreeGridFn(data: any) {
     this.viewTreeGridColumnEvent.emit(data);
+  }
+  sortTreeGridFn(data: any) {
+    this.sortTreeGridColumnEvent.emit(data);
   }
 }

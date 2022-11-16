@@ -1,0 +1,32 @@
+<div class="control-section">
+    <div class="col-lg-12">
+        <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
+            <ejs-dialog id="templateAddColumn" #templateAddColumn width="450px"
+                [visible]="sortColumnDialogVisible$.value" header="Select column(s) to sort" allowDragging="true"
+                [closeOnEscape]="false">
+                <form id="sortColumnForm" #sortColumnForm="ngForm">
+                    <ng-template #template ngFor let-column [ngForOf]="columnNameData$.value">
+                        <div class="form-group" style="padding-top: 11px;">
+                            <div class="e-float-input e-control-wrapper">
+                                <ejs-checkbox label={{column.headerText}} value={{column.field}} name="sortValue"
+                                    (change)="onCheckboxChange($event)" [checked]="checkedValue.includes(column.field)">
+                                </ejs-checkbox>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="form-group" style="padding-top: 11px;">
+                        <div class="e-footer-content">
+                            <div class="submitBtn">
+                                <button class="e-control e-btn e-lib e-primary e-flat" id="submit-btn"
+                                    (click)="sortByColumnName()">Sort</button>
+                                <button class="e-control e-btn e-lib e-flat" id="cancel"
+                                    (click)="hideDialog()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </ejs-dialog>
+        </div>
+    </div>
+</div>

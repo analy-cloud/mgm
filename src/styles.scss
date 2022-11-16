@@ -16,6 +16,10 @@
 .e-headercell {
   color: #757575;
   font-weight: bold;
+  &.e-focus {
+    transition: all 0.5s;
+    background-color: #e1dcdc;
+  }
 }
 
 .sortable-container {
@@ -33,4 +37,9 @@
       background: transparent !important;
     }
   }
+}
+.e-sortnumber {
+  margin-right: 25px !important;
+  background: #e3165b !important;
+  color: #ffffff !important;
 }
