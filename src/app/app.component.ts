@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
   // Row's Communicator
   addRowDialogVisible$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(true);
+    new BehaviorSubject<boolean>(false);
 
   constructor(private sharedService: SharedService) {}
 
