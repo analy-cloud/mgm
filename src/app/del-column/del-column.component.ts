@@ -44,9 +44,6 @@ export class DelColumnComponent implements OnInit {
   }
   onDelete() {
     const { component, field } = this.viewColumnDialogColumnData$.value;
-    console.log({
-      field,
-    });
     component.columns.map((col: any, indx: number) => {
       if (col.field === field) {
         if (component.columns[indx].isPrimaryKey) {
@@ -54,7 +51,7 @@ export class DelColumnComponent implements OnInit {
           this.deleteContent = `<strong>Primary ID</strong> cannot be deletable`;
           setTimeout(() => {
             this.hideDialog();
-          }, 1000);
+          }, 3000);
           return;
         } else {
           this.isPrimaryKey = false;

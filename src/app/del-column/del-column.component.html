@@ -5,13 +5,6 @@
                 [visible]='deleteColumnDialogVisible$.value' header="Delete Colunm" allowDragging="true"
                 [closeOnEscape]="false" [buttons]="deleteButtons" [content]="deleteContent"
                 (beforeOpen)="beforeOpen()">
-                <span *ngIf="!isPrimaryKey">
-<!-- 
-                    {{viewColumnDialogColumnData$.value?.id | json}}
-                    <hr />
-                    Do you want to delete
-                    <strong>{{viewColumnDialogColumnData$.value?.component?.columns[viewColumnDialogColumnData$.value?.id]?.headerText}}</strong>? -->
-                </span>
             </ejs-dialog>
         </div>
     </div>

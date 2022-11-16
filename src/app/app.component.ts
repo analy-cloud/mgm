@@ -5,6 +5,7 @@ import {
   SortSettingsModel,
   TreeActionEventArgs,
   TreeGridComponent,
+  EditSettingsModel,
 } from '@syncfusion/ej2-angular-treegrid';
 import { Ajax } from '@syncfusion/ej2-base';
 import { dataSource, sampleData } from './datasource';
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
   public treeGrid: TreeGridComponent | any;
   public contextMenuItemsCol: Object[];
   @ViewChild('ejDialog') ejDialog: DialogComponent;
+  public editSettings: EditSettingsModel;
 
   addColumnDialogVisible$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
@@ -45,6 +47,14 @@ export class AppComponent implements OnInit {
   );
   deleteColumnDialogVisible$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
+  sortColumnDialogVisible$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  columnNameData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  sortColumnDialogData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+
+  // Row's Communicator
+  addRowDialogVisible$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   constructor(private sharedService: SharedService) {}
 
@@ -59,6 +69,9 @@ export class AppComponent implements OnInit {
       });
       this.sharedService.viewTreeGridColumnEvent.subscribe((data: object) => {
         this.viewAndUpdateColumn(data);
+      });
+      this.sharedService.sortTreeGridColumnEvent.subscribe((data: object) => {
+        this.sortColumn(data);
       });
     }
 
@@ -147,6 +160,16 @@ export class AppComponent implements OnInit {
         target: '.e-columnheader',
       },
       {
+        text: 'Add Next',
+        id: 'AddNext',
+        target: '.e-row',
+      },
+      {
+        text: 'Add Child',
+        id: 'AddChild',
+        target: '.e-row',
+      },
+      {
         text: 'Edit Row',
         id: 'EditRow',
         target: '.e-row',
@@ -158,6 +181,7 @@ export class AppComponent implements OnInit {
   ngAfterViewInit(): void {
     this.parentTreeComponent = new BehaviorSubject<any>('');
   }
+  // convert rgb colours to hex
   private rgb2hex = (c: any) =>
     '#' +
     c.match(/\d+/g).map((x: any) => (+x).toString(16).padStart(2, '0')).join``;
@@ -180,9 +204,18 @@ export class AppComponent implements OnInit {
     this.treeGrid.refreshColumns();
   }
 
+  sortColumn(obj: any) {
+    console.log({ obj });
+    const multiSort = obj.map((field: string) => {
+      return { field, direction: 'Ascending' };
+    });
+    // multiSort.length
+    // ?
+    this.treeGrid.sortSettings.columns = [...multiSort];
+    // : null;
+  }
+
   actionBegin(args: SaveEventArgs): void {
-    if (this.menuId === 'AddCol') {
-    }
     switch (this.menuId) {
       case 'AddCol':
         const { fontSize, wrap } = this.parentTreeComponent.value.childAttrs;
@@ -205,7 +238,6 @@ export class AppComponent implements OnInit {
             if (i === this.indexofCol) {
               d.style.color = value.fontColor;
             }
-            console.log(value);
           }
         );
         Array.from(
@@ -221,20 +253,36 @@ export class AppComponent implements OnInit {
         break;
     }
   }
+  actionComplete(args: SaveEventArgs) {
+    // console.log({args})
+  }
 
   contextMenuClick(args: any): void {
-    const {
-      column: { index, field },
-      item: {
-        properties: { id: menuId },
-      },
-    } = args;
+    console.log({
+      args,
+    });
+    // const {
+    //   column: { index, field },
+    //   item: {
+    //     properties: { id: menuId },
+    //   },
+    // } = args;
+    const index = args.column?.index,
+      field = args.column?.field,
+      menuId = args.item.properties.id;
 
     this.indexofCol = index;
     this.menuId = menuId;
 
     if (menuId === 'AddCol') {
       this.addColumnDialogVisible$.next(true);
+      // var obj = {
+      //   field: 'priority',
+      //   headerText: 'wowCol',
+      //   width: 120,
+      // };
+      // this.treeGrid.columns.push(obj)
+      // this.treeGrid.refreshColumns();
     }
     if (menuId === 'EditCol') {
       console.log({
@@ -254,15 +302,6 @@ export class AppComponent implements OnInit {
       };
 
       this.editColumnData$.next({ ...editColData });
-
-      // this.treeGrid.columns.map((d:any) => {
-      //   console.log(d)
-      // })
-      // this.treeGrid.columns.splice(this.indexofCol + 1, 0, obj as any);
-      // this.treeGrid.refreshColumns();
-
-      // this.addColumnDialogVisible$.next(true);
-      // this.indexofCol = index;
     }
     if (menuId === 'ViewCol') {
       this.viewColumnDialogVisible$.next(true);
@@ -303,13 +342,31 @@ export class AppComponent implements OnInit {
       // console.log((this.treeGrid.filterSettings));
     }
     if (menuId === 'MultiSort') {
-      this.treeGrid.allowSorting = true;
-      setTimeout(() => {}, 0);
-      console.log(
-        (this.treeGrid.sortSettings.columns = [
-          { field: 'taskID', direction: 'Ascending' },
-        ])
-      );
+      this.sortColumnDialogVisible$.next(true);
+      this.columnNameData$.next(this.treeGrid.columnModel);
+      this.viewColumnDialogColumnData$.next(this.treeGrid);
+      this.treeGrid.allowSorting = false;
+    }
+    if (menuId === 'AddNext') {
+      console.log({ __: this.treeGrid });
+      var data = {
+        taskID: 13,
+        taskName: 'vasu....',
+        progress: 100,
+      };
+      this.treeGrid.editSettings = {
+        allowEditing: true,
+        allowAdding: true,
+        allowDeleting: true,
+        newRowPosition: 'Top',
+        showConfirmDialog: false,
+        mode: 'Cell',
+      };
+      setTimeout(() => {
+        this.treeGrid.addRecord(data, this.treeGrid.selectedRowIndex + 1);
+      }, 100);
+
+      // this.treeGrid.dataSource.push({taskID: 1111, taskName: 'vasu'})
     }
   }
   beforeOpen(args: TreeActionEventArgs): void {
@@ -318,7 +375,11 @@ export class AppComponent implements OnInit {
       __: this.treeGrid,
     });
   }
-  contextMenuOpen(arg: TreeActionEventArgs): void {
+  contextMenuOpen(arg: TreeActionEventArgs | any): void {
+    // [...document.querySelectorAll('.e-headercell')].forEach((d: any) =>
+    //   d.classList.remove('e-focus')
+    // );
+    // arg.rowInfo.target.classList.add('e-focus');
     console.log('Hello');
   }
 }
