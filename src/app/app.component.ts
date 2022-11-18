@@ -52,9 +52,9 @@ export class AppComponent implements OnInit {
   columnNameData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
   sortColumnDialogData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
-  // Row's Communicator
+  // Row's Communicator...
   addRowDialogVisible$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+    new BehaviorSubject<boolean>(true);
 
   constructor(private sharedService: SharedService) {}
 
